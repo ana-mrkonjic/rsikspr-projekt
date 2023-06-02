@@ -2,26 +2,20 @@ version: '3.9'
 
 services:
   app:
-    build:
-      context: .
-      dockerfile: Dockerfile
+    container_name: springboot-app
+    image: springboot-app
+    build: ./
     ports:
-      - 8080:8080
+      - "8080:8080"
     depends_on:
-      - db
-    environment:
-      DB_HOST: 'db'
-      DB_PORT: '5432'
-      DB_NAME: 'users'
-      DB_USER: 'chatapp'
-      DB_PASSWORD: 'chatappsecured'
+      - postgresql
 
-  postgre-server:
+  postgresql:
     image: postgres
     container_name: some-postgres
     ports:
-      - 5432:5432
+      - "5432:5432"
     environment:
-      POSTGRES_DB: 'users'
+      POSTGRES_DB: 'usersdb'
       POSTGRES_USER: 'chatapp'
       POSTGRES_PASSWORD: 'chatappsecured'
